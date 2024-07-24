@@ -1,4 +1,4 @@
-```
+```mermaid
 erDiagram
     USERS {
         INTEGER user_id PK
