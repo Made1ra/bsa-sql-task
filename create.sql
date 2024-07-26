@@ -5,7 +5,7 @@ CREATE TABLE files (
     file_key VARCHAR(255) NOT NULL UNIQUE,
     url VARCHAR(255) NOT NULL,
     is_public BOOLEAN NOT NULL DEFAULT FALSE,
-	created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -17,7 +17,7 @@ CREATE TABLE users (
     email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     avatar_id INTEGER,
-	created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (avatar_id) REFERENCES files(file_id)
 );
@@ -25,7 +25,7 @@ CREATE TABLE users (
 CREATE TABLE countries (
     country_id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-	created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -38,7 +38,7 @@ CREATE TABLE people (
     gender VARCHAR(50),
     country_id INTEGER,
     profile_picture_id INTEGER,
-	created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (country_id) REFERENCES countries(country_id),
     FOREIGN KEY (profile_picture_id) REFERENCES files(file_id)
@@ -54,7 +54,7 @@ CREATE TABLE movies (
     director_id INTEGER,
     country_id INTEGER,
     poster_id INTEGER,
-	created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (director_id) REFERENCES people(person_id),
     FOREIGN KEY (country_id) REFERENCES countries(country_id),
@@ -64,14 +64,14 @@ CREATE TABLE movies (
 CREATE TABLE genres (
     genre_id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-	created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE movie_genres (
     movie_id INTEGER,
     genre_id INTEGER,
-	created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (movie_id, genre_id),
     FOREIGN KEY (movie_id) REFERENCES movies(movie_id),
@@ -85,7 +85,7 @@ CREATE TABLE characters (
     role VARCHAR(50) CHECK (role IN ('leading', 'supporting', 'background')),
     movie_id INTEGER,
     person_id INTEGER,
-	created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (movie_id) REFERENCES movies(movie_id),
     FOREIGN KEY (person_id) REFERENCES people(person_id)
@@ -94,7 +94,7 @@ CREATE TABLE characters (
 CREATE TABLE people_photos (
     person_id INTEGER,
     file_id INTEGER,
-	created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (person_id, file_id),
     FOREIGN KEY (person_id) REFERENCES people(person_id),
@@ -104,7 +104,7 @@ CREATE TABLE people_photos (
 CREATE TABLE favorite_movies (
     user_id INTEGER,
     movie_id INTEGER,
-	created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (user_id, movie_id),
     FOREIGN KEY (user_id) REFERENCES users(user_id),
